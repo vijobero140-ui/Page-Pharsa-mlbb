@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pharsa – Wings of Vengeance | MLBB</title>
+<meta name="description" content="Fan site de Pharsa, heroína maga de Mobile Legends: Bang Bang." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;--surface:#12121a;--surface2:#1c1c28;
+  --text:#e8e0f0;--text-muted:#9990b0;--border:rgba(255,255,255,.08);
+  --accent:#c0392b;--gold:#d4a017;--radius:12px;
+  --px:clamp(16px,5vw,64px);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+
+.navbar{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:12px;padding:20px var(--px);flex-wrap:wrap}
+.logo{font-family:'Cinzel',serif;font-size:clamp(.9rem,2.5vw,1.1rem);font-weight:700;color:var(--gold);letter-spacing:.12em;display:flex;align-items:center;gap:8px}
+.hero-name-badge{margin-left:auto;font-family:'Cinzel',serif;font-size:clamp(.65rem,1.5vw,.85rem);font-weight:700;letter-spacing:.2em;color:var(--text-muted);text-transform:uppercase}
+.role-badge{background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--text-muted);font-size:clamp(.62rem,1.2vw,.72rem);font-weight:500;padding:4px 10px;border-radius:100px;letter-spacing:.06em;white-space:nowrap}
+
+.hero{position:relative;height:100vh;height:100dvh;min-height:580px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center top;background-repeat:no-repeat}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,15,.35) 0%,rgba(10,10,15,0) 25%,rgba(10,10,15,.55) 55%,rgba(10,10,15,.97) 100%)}
+@media(max-width:600px){
+  .hero-bg{background-position:65% top}
+  .hero-overlay{background:linear-gradient(to bottom,rgba(10,10,15,.45) 0%,rgba(10,10,15,.05) 25%,rgba(10,10,15,.65) 55%,rgba(10,10,15,.97) 100%),linear-gradient(to right,rgba(10,10,15,.55) 0%,rgba(10,10,15,0) 55%)}
+}
+.hero-content{position:relative;z-index:10;padding:0 var(--px) clamp(48px,10vw,96px);max-width:min(640px,90vw)}
+.hero-tag{font-size:clamp(.62rem,1.5vw,.72rem);font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;transition:color .4s}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(2.2rem,8vw,5rem);font-weight:900;line-height:1.05;color:#fff;text-shadow:0 4px 32px rgba(0,0,0,.6);margin-bottom:8px}
+.hero-subtitle{font-family:'Cinzel',serif;font-size:clamp(.75rem,2vw,1rem);font-weight:400;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px}
+.hero-desc{font-size:clamp(.82rem,2vw,.95rem);color:rgba(232,224,240,.82);max-width:480px;line-height:1.75;margin-bottom:24px}
+.hero-badge{display:inline-block;background:var(--accent);color:#fff;font-size:clamp(.62rem,1.5vw,.72rem);font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:6px 18px;border-radius:100px;transition:background .4s}
+
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.2rem,4vw,1.6rem);font-weight:700;color:#fff;margin-bottom:clamp(20px,4vw,32px);position:relative;display:inline-block}
+.section-title::after{content:'';display:block;height:2px;width:50%;background:var(--gold);margin-top:8px;border-radius:2px}
+
+.skins-section{padding:clamp(48px,8vw,80px) var(--px);background:var(--surface)}
+.skin-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:clamp(12px,2vw,20px)}
+.skin-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .25s,border-color .3s,box-shadow .3s;text-align:left;display:flex;flex-direction:column;font-family:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+@media(hover:hover){.skin-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.5)}}
+.skin-card.active{border-color:var(--card-accent,#888);box-shadow:0 0 0 2px var(--card-accent,#888),0 12px 40px rgba(0,0,0,.5)}
+.skin-thumb{width:100%;aspect-ratio:16/9;background-size:cover;background-position:center top;flex-shrink:0}
+.skin-info{padding:clamp(12px,2.5vw,16px)}
+.skin-badge-label{font-size:clamp(.58rem,1.2vw,.65rem);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--card-accent,#888);margin-bottom:4px;display:block}
+.skin-card-name{font-family:'Cinzel',serif;font-size:clamp(.88rem,2vw,1rem);font-weight:700;color:#fff;margin-bottom:2px}
+.skin-card-sub{font-size:clamp(.72rem,1.5vw,.78rem);color:var(--text-muted)}
+
+.abilities-section{padding:clamp(48px,8vw,80px) var(--px);background:var(--bg)}
+.abilities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:clamp(12px,2vw,20px)}
+.ability-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(16px,3vw,24px);transition:border-color .2s}
+@media(hover:hover){.ability-card:hover{border-color:rgba(255,255,255,.2)}}
+.ability-name{font-family:'Cinzel',serif;font-size:clamp(.78rem,1.8vw,.88rem);font-weight:700;color:var(--gold);margin-bottom:10px;line-height:1.3}
+.ability-desc{font-size:clamp(.8rem,1.8vw,.88rem);color:var(--text-muted);line-height:1.7}
+
+.gallery-section{padding:clamp(48px,8vw,80px) var(--px);background:var(--surface)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:clamp(10px,2vw,16px)}
+.gallery-item{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.gallery-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .4s}
+@media(hover:hover){.gallery-item:hover .gallery-img{transform:scale(1.04)}}
+.gallery-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(10,10,15,.9) 0%,transparent 100%);padding:28px 14px 12px;font-family:'Cinzel',serif;font-size:clamp(.75rem,1.8vw,.85rem);font-weight:700;color:#fff;letter-spacing:.05em}
+
+.site-footer{text-align:center;padding:clamp(28px,6vw,40px) var(--px);background:var(--bg);border-top:1px solid var(--border);color:var(--text-muted);font-size:clamp(.72rem,1.5vw,.8rem)}
+.footer-note{margin-top:6px;opacity:.6}
+
+@media(max-width:900px){.skin-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){
+  .hero-name-badge{display:none}
+  .abilities-grid,.gallery-grid{grid-template-columns:1fr}
+  .skin-cards{grid-template-columns:repeat(3,minmax(220px,1fr));overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:8px;scroll-snap-type:x mandatory}
+  .skin-cards::-webkit-scrollbar{display:none}
+  .skin-card{scroll-snap-align:start}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <nav class="navbar">
+    <span class="logo">&#9876; MLBB</span>
+    <span class="hero-name-badge">Pharsa</span>
+    <span class="role-badge" id="roleLabel">Maga &bull; Soporte</span>
+  </nav>
+  <div class="hero-content">
+    <p class="hero-tag" id="heroTag">Mobile Legends: Bang Bang</p>
+    <h1 class="hero-title" id="heroTitle">Pharsa</h1>
+    <p class="hero-subtitle" id="heroSub">Wings of Vengeance</p>
+    <p class="hero-desc" id="heroDesc"></p>
+    <div class="hero-badge" id="heroBadge">Original</div>
+  </div>
+</section>
+
+<section class="skins-section">
+  <h2 class="section-title">Skins</h2>
+  <div class="skin-cards" id="skinCards"></div>
+</section>
+
+<section class="abilities-section">
+  <h2 class="section-title">Habilidades</h2>
+  <div class="abilities-grid">
+    <div class="ability-card">
+      <h3 class="ability-name">Pasiva – Ornamento de Plumas</h3>
+      <p class="ability-desc">Cada habilidad lanzada marca a los enemigos con una pluma. Al acumular suficientes marcas, Pharsa los paraliza brevemente.</p>
+    </div>
+    <div class="ability-card">
+      <h3 class="ability-name">Habilidad 1 – Veneno de Plumas</h3>
+      <p class="ability-desc">Lanza una bola de magia oscura que daña y ralentiza al primer enemigo que golpea, dejando a su paso un rastro de veneno.</p>
+    </div>
+    <div class="ability-card">
+      <h3 class="ability-name">Habilidad 2 – Forma de Pájaro</h3>
+      <p class="ability-desc">Se transforma en un pájaro y puede volar libremente por todo el mapa, atravesando paredes, ríos y obstáculos. Mientras está en forma de pájaro puede usar su Ultimate para lanzar un bombardeo desde cualquier parte del mapa.</p>
+    </div>
+    <div class="ability-card">
+      <h3 class="ability-name">Ultimate – Lluvia de Plumas</h3>
+      <p class="ability-desc">Invoca una lluvia de plumas mágicas que caen del cielo en un área elegida, causando un daño mágico devastador a todos los enemigos dentro.</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-section">
+  <h2 class="section-title">Galería</h2>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<footer class="site-footer">
+  <p>&copy; 2024 Fan Site &mdash; Pharsa | Mobile Legends: Bang Bang</p>
+  <p class="footer-note">All assets belong to their respective owners (Moonton).</p>
+</footer>
+
+<script>
+/* ── PALETAS DE PLUMAS POR SKIN ─────────────────────────── */
+var SKIN_COLORS = [
+  // 0 – Original: blanco y negro
+  ["#ffffff","#ffffff","#f0f0f0","#e0e0e0","#cccccc","#111111","#1a1a1a","#222222"],
+  // 1 – Peafowl's Dance: azul, turquesa, verde, dorado
+  ["#2980b9","#3498db","#1abc9c","#16a085","#27ae60","#2ecc71","#f1c40f","#00bcd4"],
+  // 2 – Peony Bloom: rosa, malva, lila, lavanda
+  ["#f48fb1","#f06292","#e91e8c","#ce93d8","#ab47bc","#ff80ab","#e040fb","#f8bbd9"]
+];
+
+/* ── SKINS DATA ─────────────────────────────────────────── */
+var skins = [
+  {
+    name:"Pharsa", subtitle:"Wings of Vengeance", role:"Maga \u2022 Soporte",
+    desc:"Pharsa es una maga ciega cuyo v\u00ednculo con su amado Ervard le otorga la habilidad de ver a trav\u00e9s de los ojos de los p\u00e1jaros. Con el poder de la magia oscura y su bast\u00f3n encantado, puede desencadenar devastadoras lluvias de magia desde el cielo.",
+    img:"MLBB_Pharsa.jpg", accent:"#c0392b", badge:"Original"
+  },
+  {
+    name:"Danza del Pavo Real", subtitle:"Peafowl's Dance", role:"Skin \u00c9lite",
+    desc:"En esta piel \u00e9lite, Pharsa se transforma en una danzarina divina adornada con plumas de pavo real. Canalizando la energ\u00eda c\u00f3smica en su palma, cada habilidad despliega un espect\u00e1culo de luz azul y dorada que deslumbra a enemigos y aliados.",
+    img:"MLBB_Pharsa_PeafowlsDance_skin.jpg", accent:"#2980b9", badge:"\u00c9lite"
+  },
+  {
+    name:"Flor de Peon\u00eda", subtitle:"Peony Bloom", role:"Skin \u00c9star",
+    desc:"Bajo la luz de la luna, Pharsa florece como una peon\u00eda. Vestida de seda blanca con adornos rosados, esta skin \u00e9star muestra su lado m\u00e1s sereno y po\u00e9tico, equilibrando la belleza de la naturaleza con el poder m\u00edstico de la magia lunar.",
+    img:"MLBB_PeonyBloom.jpg", accent:"#8e44ad", badge:"\u00c9tar"
+  }
+];
+
+/* ── FEATHER CANVAS ─────────────────────────────────────── */
+var canvas = document.createElement('canvas');
+canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:15';
+document.body.appendChild(canvas);
+var ctx = canvas.getContext('2d');
+var feathers = [];
+var currentPalette = SKIN_COLORS[0];
+
+function mkFeather(w, h, scatter) {
+  var size = Math.random() * 20 + 7;
+  var palette = currentPalette;
+  return {
+    x: Math.random() * w,
+    y: scatter ? Math.random() * h : -(size * 2 + Math.random() * 40),
+    size: size,
+    angle: Math.random() * Math.PI * 2,
+    rotSpeed: (Math.random() - 0.5) * 0.025,
+    vx: (Math.random() - 0.5) * 0.5,
+    vy: Math.random() * 0.7 + 0.25,
+    alpha: Math.random() * 0.38 + 0.1,
+    color: palette[Math.floor(Math.random() * palette.length)],
+    swayOffset: Math.random() * Math.PI * 2,
+    swaySpeed: Math.random() * 0.018 + 0.004
+  };
+}
+
+function drawFeather(f) {
+  ctx.save();
+  ctx.translate(f.x, f.y);
+  ctx.rotate(f.angle);
+  ctx.globalAlpha = f.alpha;
+  var s = f.size;
+  ctx.beginPath();
+  ctx.moveTo(0, -s);
+  ctx.bezierCurveTo( s*0.45, -s*0.35,  s*0.42, s*0.42, 0, s*0.72);
+  ctx.bezierCurveTo(-s*0.42,  s*0.42, -s*0.45,-s*0.35, 0, -s);
+  ctx.fillStyle = f.color;
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(0, -s*0.88);
+  ctx.lineTo(0,  s*0.72);
+  ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+  ctx.lineWidth = Math.max(0.4, s*0.055);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function recolor(skinIdx) {
+  currentPalette = SKIN_COLORS[skinIdx] || SKIN_COLORS[0];
+  for (var i = 0; i < feathers.length; i++) {
+    feathers[i].color = currentPalette[Math.floor(Math.random() * currentPalette.length)];
+  }
+}
+
+function resize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+for (var i = 0; i < 24; i++) feathers.push(mkFeather(canvas.width, canvas.height, true));
+
+var t = 0;
+function tick() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  t += 0.016;
+  for (var i = 0; i < feathers.length; i++) {
+    var f = feathers[i];
+    f.x += f.vx + Math.sin(t * f.swaySpeed * 10 + f.swayOffset) * 0.35;
+    f.y += f.vy;
+    f.angle += f.rotSpeed;
+    if (f.y - f.size > canvas.height) feathers[i] = mkFeather(canvas.width, canvas.height, false);
+    if (f.x < -f.size*2) f.x = canvas.width + f.size;
+    if (f.x > canvas.width + f.size*2) f.x = -f.size;
+    drawFeather(f);
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+
+/* ── SKIN SELECTOR ──────────────────────────────────────── */
+function setHero(i) {
+  var s = skins[i];
+  document.getElementById('heroBg').style.backgroundImage = 'url(' + s.img + ')';
+  document.getElementById('heroTitle').textContent = s.name;
+  document.getElementById('heroSub').textContent = s.subtitle;
+  document.getElementById('heroDesc').textContent = s.desc;
+  document.getElementById('heroBadge').textContent = s.badge;
+  document.getElementById('heroBadge').style.background = s.accent;
+  document.getElementById('heroTag').style.color = s.accent;
+  document.getElementById('roleLabel').textContent = s.role;
+  document.querySelectorAll('.skin-card').forEach(function(c, j) {
+    c.classList.toggle('active', j === i);
+    c.style.borderColor = j === i ? skins[j].accent : '';
+    c.style.boxShadow   = j === i ? '0 0 0 2px ' + skins[j].accent + ',0 12px 40px rgba(0,0,0,.5)' : '';
+  });
+  recolor(i);
+}
+
+var container = document.getElementById('skinCards');
+skins.forEach(function(s, i) {
+  var card = document.createElement('button');
+  card.className = 'skin-card' + (i === 0 ? ' active' : '');
+  card.style.setProperty('--card-accent', s.accent);
+  if (i === 0) {
+    card.style.borderColor = s.accent;
+    card.style.boxShadow   = '0 0 0 2px ' + s.accent + ',0 12px 40px rgba(0,0,0,.5)';
+  }
+  card.innerHTML =
+    '<div class="skin-thumb" style="background-image:url(' + s.img + ')"></div>' +
+    '<div class="skin-info">' +
+      '<span class="skin-badge-label">' + s.badge + '</span>' +
+      '<p class="skin-card-name">' + s.name + '</p>' +
+      '<p class="skin-card-sub">' + s.subtitle + '</p>' +
+    '</div>';
+  card.addEventListener('click', (function(idx){ return function(){ setHero(idx); }; })(i));
+  container.appendChild(card);
+});
+
+var gallery = document.getElementById('galleryGrid');
+skins.forEach(function(s) {
+  var item = document.createElement('div');
+  item.className = 'gallery-item';
+  item.innerHTML =
+    '<img src="' + s.img + '" alt="' + s.name + '" class="gallery-img" loading="lazy"/>' +
+    '<div class="gallery-label">' + s.name + '</div>';
+  gallery.appendChild(item);
+});
+
+setHero(0);
+</script>
+</body>
+</html>
